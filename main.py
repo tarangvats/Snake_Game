@@ -30,18 +30,19 @@ while game_is_on:
     s.update()
     time.sleep(0.1)
     sn.snake_move()
-    x = sn.segments[2].xcor()
-    y = sn.segments[2].ycor()
+    x = sn.segments[len(sn.segments) - 1].xcor()
+    y = sn.segments[len(sn.segments) - 1].ycor()
     score.clear()
     score.print()
     if x >= 290 or x <= -290 or y >= 250 or y <= -290:
         game_is_on = False
         score.game_over()
         print(f"Your score is {sr}")
-    if sn.segments[2].distance(f) <=15:
+    if sn.segments[len(sn.segments) - 1].distance(f) <=15:
         sr = sr +1
         f.refresh()
         score.update()
+        sn.increase_size()
 
 
 s.exitonclick()

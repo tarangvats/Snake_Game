@@ -3,8 +3,7 @@ UP = 90
 DOWN = 270
 LEFT = 180
 RIGHT = 0
-from turtle import Turtle,Screen
-import time
+from turtle import Turtle
 class Snake:
     def __init__(self):
         self.segments = []
@@ -26,14 +25,31 @@ class Snake:
         self.segments[len(self.segments) - 1].forward(MOVE_DISTANCE)
 
     def move_right(self):
-        if self.segments[2].heading()!=LEFT:
-            self.segments[2].setheading(RIGHT)
+        if self.segments[len(self.segments) - 1].heading()!=LEFT:
+            self.segments[len(self.segments) - 1].setheading(RIGHT)
     def down(self):
-        if self.segments[2].heading() != UP:
-            self.segments[2].setheading(DOWN)
+        if self.segments[len(self.segments) - 1].heading() != UP:
+            self.segments[len(self.segments) - 1].setheading(DOWN)
     def up(self):
-        if self.segments[2].heading() != DOWN:
-            self.segments[2].setheading(UP)
+        if self.segments[len(self.segments) - 1].heading() != DOWN:
+            self.segments[len(self.segments) - 1].setheading(UP)
     def move_left(self):
-        if self.segments[2].heading() != RIGHT:
-            self.segments[2].setheading(LEFT)
+        if self.segments[len(self.segments) - 1].heading() != RIGHT:
+            self.segments[len(self.segments) - 1].setheading(LEFT)
+
+    def increase_size(self):
+        t = Turtle(shape="square")
+        t.penup()
+        t.color("white")
+        xc=self.segments[len(self.segments) - 1].xcor()
+        yc=self.segments[len(self.segments) - 1].ycor()
+        if self.segments[len(self.segments) - 1].heading() == RIGHT:
+            t.goto(x=xc+20, y=yc)
+        if self.segments[len(self.segments) - 1].heading() == LEFT:
+            t.goto(x=xc-20, y=yc)
+        if self.segments[len(self.segments) - 1].heading() == UP:
+            t.goto(x=xc, y=yc+20)
+        if self.segments[len(self.segments) - 1].heading() == DOWN:
+            t.goto(x=xc, y=yc-20)
+        t.setheading(self.segments[len(self.segments) - 1].heading())
+        self.segments.append(t)
